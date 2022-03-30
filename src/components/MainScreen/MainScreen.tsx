@@ -1,69 +1,81 @@
 import React from 'react';
+import 'react-native-get-random-values'
+import { v4 as uuidv4} from 'uuid';
 import {
   SafeAreaView,
-  StatusBar,
-  StyleSheet,
   Text,
-  View,
-  FlatList,
-  TextInput
-} from 'react-native';
+  FlatList} from 'react-native';
 import AddGoal from '../AddGoal/AddGoal';
 import Item from '../Item/Item';
-import NewButton from '../NewButton/NewButton';
 import mainscreen from './MainScreen.styles';
+
+interface Aa {
+  id: string,
+  name: string
+}
 
 const MainScreen = () => {
 
-  const originalGoals = [{
-    id: 'g0',
+  const originalGoals: Aa[] = [{
+    id: uuidv4(),
     name: 'Take photos'
   },
   {
-    id: 'g1',
+    id: uuidv4(),
     name: 'Make scans'
   },
   {
-    id: 'g2',
+    id: uuidv4(),
     name: '...'
   },
   {
-    id: 'g3',
+    id: uuidv4(),
     name: 'Profit'
   }];
 
-  const [goalList, setGoals] = React.useState([
-    ...originalGoals
-  ]);
+  const [goalList, setGoals] = React.useState<Aa[]>(
+    originalGoals
+  );
 
-  const AddNewGoalHandler = (text: string) => {
+
+  const addNewGoalHandler = (text: string) => {
     if (!text.length) {
       return
     }
 
     setGoals((prevGoals: any) => {
       const goal = {
-        id: 'g' + prevGoals.length,
+        id: uuidv4(),
         name: text
       };
       return prevGoals.concat(goal);
     });
   };
 
-  const renderItem = (item: any) => {
+  const DeleteGoalHandler = (item: any) => {
+
+    console.log("kliknieto: " + item.id);
+    setGoals((prevGoals: any) => {
+      prevGoals.splice(prevGoals.indexOf(item), 1);
+      return prevGoals.slice();
+    });
+
+  };
+
+  const renderItem = (item: Aa) => {
     return (
-      <Item name={item.item.name} />
+      <Item item={item} onDeleteGoal={DeleteGoalHandler} />
     );
   };
 
   return (
     <SafeAreaView style={mainscreen.container}>
       <Text style={mainscreen.appTitle}>Goals:</Text>
-      <AddGoal onAddGoal={AddNewGoalHandler}></AddGoal>
+      <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
       <FlatList
         data={goalList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
+        renderItem={({ item }) => renderItem(item)}
+        keyExtractor={({ id }) => id}
       />
     </SafeAreaView>
   );
