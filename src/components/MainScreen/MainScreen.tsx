@@ -1,13 +1,17 @@
-import React from 'react';
-import 'react-native-get-random-values'
-import { v4 as uuidv4} from 'uuid';
+import React, { Suspense } from 'react';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
   Text,
-  FlatList} from 'react-native';
+  FlatList,
+  Button
+} from 'react-native';
 import AddGoal from '../AddGoal/AddGoal';
 import Item from '../Item/Item';
 import mainscreen from './MainScreen.styles';
+import ClearButton from '../ClearButton/ClearButton';
 
 interface Aa {
   id: string,
@@ -15,6 +19,8 @@ interface Aa {
 }
 
 const MainScreen = () => {
+
+  const { t, i18n } = useTranslation();
 
   const originalGoals: Aa[] = [{
     id: uuidv4(),
@@ -42,7 +48,6 @@ const MainScreen = () => {
     if (!text.length) {
       return
     }
-
     setGoals((prevGoals: any) => {
       const goal = {
         id: uuidv4(),
@@ -68,9 +73,20 @@ const MainScreen = () => {
     );
   };
 
+  const changeLanguage = () => {
+    console.log(i18n.language);
+    if (i18n.language === 'en')
+      i18n.changeLanguage('pl');
+    else
+      i18n.changeLanguage('en');
+  };
+
   return (
     <SafeAreaView style={mainscreen.container}>
-      <Text style={mainscreen.appTitle}>Goals:</Text>
+      <Button title={t('ChangeLanguage')} onPress={changeLanguage} />
+      <Suspense fallback='loading'>
+        <Text style={mainscreen.appTitle}>{t('Title')}:</Text>
+      </Suspense>
       <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
       <FlatList
         data={goalList}
