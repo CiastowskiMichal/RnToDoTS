@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-get-random-values'
 import { v4 as uuidv4} from 'uuid';
 import {
@@ -7,7 +7,7 @@ import {
   FlatList} from 'react-native';
 import AddGoal from '../AddGoal/AddGoal';
 import Item from '../Item/Item';
-import mainscreen from './MainScreen.styles';
+import styles from './MainScreen.styles';
 import { Goal } from '../../types/goal';
 
 
@@ -30,7 +30,7 @@ const MainScreen = () => {
     name: 'Profit'
   }];
 
-  const [goalList, setGoals] = React.useState<Goal[]>(
+  const [goalList, setGoals] = useState<Goal[]>(
     originalGoals
   );
 
@@ -40,34 +40,29 @@ const MainScreen = () => {
       return
     }
 
-    setGoals((prevGoals: Goal[]) => {
-      const goal : Goal = {
-        id: uuidv4(),
-        name: text
-      };
-      return prevGoals.concat(goal);
-    });
+    const newGoal : Goal = {
+      id: uuidv4(),
+      name: text
+    };
+    setGoals([...goalList, newGoal]);
   };
 
-  const DeleteGoalHandler = (item: Goal) => {
-
-    console.log("kliknieto: " + item.id);
+  const deleteGoalHandler = (item: Goal) => {
     setGoals((prevGoals: Goal[]) => {
       prevGoals.splice(prevGoals.indexOf(item), 1);
       return prevGoals.slice();
     });
-
   };
 
   const renderItem = (item: Goal) => {
     return (
-      <Item item={item} onDeleteGoal={DeleteGoalHandler} />
+      <Item item={item} onDeleteGoal={deleteGoalHandler} />
     );
   };
 
   return (
-    <SafeAreaView style={mainscreen.container}>
-      <Text style={mainscreen.appTitle}>Goals:</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.appTitle}>Goals:</Text>
       <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
       <FlatList
         data={goalList}

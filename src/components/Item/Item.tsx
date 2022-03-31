@@ -3,20 +3,22 @@ import {
     Text, View
 } from 'react-native';
 import ClearButton from "../ClearButton/ClearButton";
-import item from './Item.styles';
-import MainScreen from "../MainScreen/MainScreen"
+import styles from './Item.styles';
 import { Goal } from "../../types/goal";
 
-interface ItemProps { item: Goal, onDeleteGoal : (goal : Goal) => void }
+interface ItemProps {
+    item: Goal,
+    onDeleteGoal: (goal: Goal) => void
+}
 
-const Item = (props: ItemProps) => {
+const Item = ({item, onDeleteGoal} : ItemProps) => {
 
     const deleteButton = () => {
-        props.onDeleteGoal(props.item);
+        onDeleteGoal(item);
     }
     return (
-        <View style={item.item}>
-            <Text style={item.title}>{props.item.name}</Text><ClearButton title="Delete!" onPress={deleteButton} />
+        <View style={styles.item}>
+            <Text style={styles.title}>{item.name}</Text><ClearButton title="Delete!" onPress={deleteButton} />
         </View>
 
     );

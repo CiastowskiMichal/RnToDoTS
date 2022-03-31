@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { TextInput, View } from 'react-native';
 import NewButton from '../NewButton/NewButton';
-import addgoal from './AddGoal.styles';
+import styles from './AddGoal.styles';
 
 
 interface AddGoalProps { onAddGoal: (text: string) => void }
 
-const AddGoal : React.FC<AddGoalProps> = ({onAddGoal}) => {
+const AddGoal = ({onAddGoal}: AddGoalProps) => {
     const [enteredText, setEnteredText] = useState<string>("");
 
     const addGoalHandler = () => {
@@ -18,10 +18,10 @@ const AddGoal : React.FC<AddGoalProps> = ({onAddGoal}) => {
     };
     
     return (
-        <View style={addgoal.addGoalView}>
+        <View style={styles.addGoalView}>
             <TextInput onChangeText={newText => setEnteredText(newText)}
                 defaultValue={enteredText}
-                style={addgoal.addGoalInput} />
+                style={styles.addGoalInput} />
             <NewButton onPress={addGoalHandler} title="Add new Goal"></NewButton>
         </View>
     );

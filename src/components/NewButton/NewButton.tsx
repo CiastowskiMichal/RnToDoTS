@@ -2,14 +2,14 @@ import React from 'react';
 import {
   Pressable, Text
 } from 'react-native';
-import newbutton from './NewButton.styles';
+import styles from './NewButton.styles';
 
 interface NewButtonProps {onPress : () => void, title : string};
 
-const NewButton = (props : NewButtonProps) => {
+const NewButton = ({onPress, title} : NewButtonProps) => {
     return (
-      <Pressable style={newbutton.addGoalButton} onPress={props.onPress}>
-        <Text style={newbutton.addGoalButtonText}>{props.title}</Text>
+      <Pressable style={styles.addGoalButton} onPress={onPress}>
+        <Text style={styles.addGoalButtonText}>{title}</Text>
       </Pressable>
     );
   }
