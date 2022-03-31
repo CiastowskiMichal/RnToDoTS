@@ -8,15 +8,12 @@ import {
 import AddGoal from '../AddGoal/AddGoal';
 import Item from '../Item/Item';
 import mainscreen from './MainScreen.styles';
+import { Goal } from '../../types/goal';
 
-interface Aa {
-  id: string,
-  name: string
-}
 
 const MainScreen = () => {
 
-  const originalGoals: Aa[] = [{
+  const originalGoals: Goal[] = [{
     id: uuidv4(),
     name: 'Take photos'
   },
@@ -33,7 +30,7 @@ const MainScreen = () => {
     name: 'Profit'
   }];
 
-  const [goalList, setGoals] = React.useState<Aa[]>(
+  const [goalList, setGoals] = React.useState<Goal[]>(
     originalGoals
   );
 
@@ -43,8 +40,8 @@ const MainScreen = () => {
       return
     }
 
-    setGoals((prevGoals: any) => {
-      const goal = {
+    setGoals((prevGoals: Goal[]) => {
+      const goal : Goal = {
         id: uuidv4(),
         name: text
       };
@@ -52,17 +49,17 @@ const MainScreen = () => {
     });
   };
 
-  const DeleteGoalHandler = (item: any) => {
+  const DeleteGoalHandler = (item: Goal) => {
 
     console.log("kliknieto: " + item.id);
-    setGoals((prevGoals: any) => {
+    setGoals((prevGoals: Goal[]) => {
       prevGoals.splice(prevGoals.indexOf(item), 1);
       return prevGoals.slice();
     });
 
   };
 
-  const renderItem = (item: Aa) => {
+  const renderItem = (item: Goal) => {
     return (
       <Item item={item} onDeleteGoal={DeleteGoalHandler} />
     );

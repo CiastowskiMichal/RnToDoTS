@@ -5,9 +5,9 @@ import {
 import ClearButton from "../ClearButton/ClearButton";
 import item from './Item.styles';
 import MainScreen from "../MainScreen/MainScreen"
+import { Goal } from "../../types/goal";
 
-interface ItemProps { item: any, onDeleteGoal : (goalId : string) => void }
-
+interface ItemProps { item: Goal, onDeleteGoal : (goal : Goal) => void }
 
 const Item = (props: ItemProps) => {
 
