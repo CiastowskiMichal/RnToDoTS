@@ -4,12 +4,7 @@ import {
 } from 'react-native';
 import ClearButton from "../ClearButton/ClearButton";
 import styles from './Item.styles';
-import { Goal } from "../../types/goal";
-
-interface ItemProps {
-    item: Goal,
-    onDeleteGoal: (goal: Goal) => void
-}
+import ItemProps from "./Item.types";
 
 const Item = ({item, onDeleteGoal} : ItemProps) => {
 

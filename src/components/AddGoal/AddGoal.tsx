@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { TextInput, View } from 'react-native';
-import NewButton from '../NewButton/NewButton';
+import CustomButton from '../CustomButton/CustomButton';
 import styles from './AddGoal.styles';
-
-
-interface AddGoalProps { onAddGoal: (text: string) => void }
+import AddGoalProps from './AddGoal.types';
 
 const AddGoal = ({onAddGoal}: AddGoalProps) => {
     const [enteredText, setEnteredText] = useState<string>("");
@@ -22,7 +20,7 @@ const AddGoal = ({onAddGoal}: AddGoalProps) => {
             <TextInput onChangeText={newText => setEnteredText(newText)}
                 defaultValue={enteredText}
                 style={styles.addGoalInput} />
-            <NewButton onPress={addGoalHandler} title="Add new Goal"></NewButton>
+            <CustomButton onPress={addGoalHandler} title="Add new Goal"></CustomButton>
         </View>
     );
 };

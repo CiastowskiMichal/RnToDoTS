@@ -35,14 +35,14 @@ const MainScreen = () => {
   );
 
 
-  const addNewGoalHandler = (text: string) => {
-    if (!text.length) {
+  const addNewGoalHandler = (name: string) => {
+    if (!name.length) {
       return
     }
 
     const newGoal : Goal = {
       id: uuidv4(),
-      name: text
+      name: name
     };
     setGoals([...goalList, newGoal]);
   };
