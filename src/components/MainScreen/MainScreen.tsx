@@ -11,7 +11,6 @@ import {
 import AddGoal from '../AddGoal/AddGoal';
 import Item from '../Item/Item';
 import mainscreen from './MainScreen.styles';
-import ClearButton from '../ClearButton/ClearButton';
 
 interface Aa {
   id: string,
@@ -74,7 +73,6 @@ const MainScreen = () => {
   };
 
   const changeLanguage = () => {
-    console.log(i18n.language);
     if (i18n.language === 'en')
       i18n.changeLanguage('pl');
     else
@@ -83,9 +81,9 @@ const MainScreen = () => {
 
   return (
     <SafeAreaView style={mainscreen.container}>
-      <Button title={t('ChangeLanguage')} onPress={changeLanguage} />
+      <Button title={t('common:changeLanguage')} onPress={changeLanguage} />
       <Suspense fallback='loading'>
-        <Text style={mainscreen.appTitle}>{t('Title')}:</Text>
+        <Text style={mainscreen.appTitle}>{t('common:title')}:</Text>
       </Suspense>
       <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
       <FlatList

@@ -1,27 +1,14 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import pl from './en';
+import en from './pl'
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
-  en: {
-    translation: {
-      Title: "Goals",
-      Delete: "Delete",
-      AddNewGoal: "Add New Goal",
-      ChangeLanguage: "Change Language"
-    }
-  },
-  pl: {
-    translation: {
-      Title: "Cele",
-      Delete: "Usuń",
-      AddNewGoal: "Dodaj nowy cel",
-      ChangeLanguage: "Zmień język"
-
-    }
-  }
+  en,
+  pl
 };
 
 i18n
