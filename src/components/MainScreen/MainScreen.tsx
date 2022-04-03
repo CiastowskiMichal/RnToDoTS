@@ -5,8 +5,8 @@ import {
   SafeAreaView,
   Text,
   FlatList} from 'react-native';
-import AddGoal from '../AddGoal/AddGoal';
-import Item from '../Item/Item';
+import AddGoalForm from '../AddGoalForm/AddGoalForm';
+import GoalListElement from '../GoalListElement/GoalListElement';
 import styles from './MainScreen.styles';
 import { Goal } from '../../types/goal';
 
@@ -41,8 +41,8 @@ const MainScreen = () => {
     }
 
     const newGoal : Goal = {
-      id: uuidv4(),
-      name: name
+      id : uuidv4(),
+      name
     };
     setGoals([...goalList, newGoal]);
   };
@@ -56,14 +56,14 @@ const MainScreen = () => {
 
   const renderItem = (item: Goal) => {
     return (
-      <Item item={item} onDeleteGoal={deleteGoalHandler} />
+      <GoalListElement item={item} onDeleteGoal={deleteGoalHandler} />
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.appTitle}>Goals:</Text>
-      <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
+      <AddGoalForm onAddGoal={addNewGoalHandler}></AddGoalForm>
       <FlatList
         data={goalList}
         renderItem={({ item }) => renderItem(item)}

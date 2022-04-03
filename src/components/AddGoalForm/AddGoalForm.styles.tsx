@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-const addgoal = StyleSheet.create({
+const addgoalform = StyleSheet.create({
 
     addGoalInput: {
         borderTopLeftRadius: 20,
@@ -36,4 +36,4 @@ const addgoal = StyleSheet.create({
     }
 });
 
-export default addgoal;
+export default addgoalform;

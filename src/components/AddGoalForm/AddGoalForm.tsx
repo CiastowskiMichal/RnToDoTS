@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { TextInput, View } from 'react-native';
 import CustomButton from '../CustomButton/CustomButton';
-import styles from './AddGoal.styles';
-import AddGoalProps from './AddGoal.types';
+import styles from './AddGoalForm.styles';
+import AddGoalFormProps from './AddGoalForm.types';
 
-const AddGoal = ({onAddGoal}: AddGoalProps) => {
+const AddGoalForm = ({onAddGoal}: AddGoalFormProps) => {
     const [enteredText, setEnteredText] = useState<string>("");
 
     const addGoalHandler = () => {
@@ -25,4 +25,4 @@ const AddGoal = ({onAddGoal}: AddGoalProps) => {
     );
 };
 
-export default AddGoal;
+export default AddGoalForm;
