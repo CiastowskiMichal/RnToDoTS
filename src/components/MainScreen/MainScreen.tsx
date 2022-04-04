@@ -4,7 +4,9 @@ import { v4 as uuidv4} from 'uuid';
 import {
   SafeAreaView,
   Text,
-  FlatList} from 'react-native';
+  FlatList,
+  Button} from 'react-native';
+import { useTranslation } from 'react-i18next';
 import AddGoalForm from '../AddGoalForm/AddGoalForm';
 import GoalListElement from '../GoalListElement/GoalListElement';
 import styles from './MainScreen.styles';
@@ -13,6 +15,7 @@ import { Goal } from '../../types/goal';
 
 const MainScreen = () => {
 
+  const { t, i18n } = useTranslation();
   const originalGoals: Goal[] = [{
     id: uuidv4(),
     name: 'Take photos'
@@ -60,8 +63,16 @@ const MainScreen = () => {
     );
   };
 
+  const changeLanguage = () => {
+    if (i18n.language === 'en')
+      i18n.changeLanguage('pl');
+    else
+      i18n.changeLanguage('en');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      <Button title={t('common:changeLanguage')} onPress={changeLanguage} />
       <Text style={styles.appTitle}>Goals:</Text>
       <AddGoalForm onAddGoal={addNewGoalHandler}></AddGoalForm>
       <FlatList
