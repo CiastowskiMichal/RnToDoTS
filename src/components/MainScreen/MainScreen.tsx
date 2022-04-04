@@ -73,7 +73,7 @@ const MainScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Button title={t('common:changeLanguage')} onPress={changeLanguage} />
-      <Text style={styles.appTitle}>Goals:</Text>
+      <Text style={styles.appTitle}>{t('common:title')}:</Text>
       <AddGoalForm onAddGoal={addNewGoalHandler}></AddGoalForm>
       <FlatList
         data={goalList}

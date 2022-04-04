@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import React from "react";
 import {
     Text, View
@@ -13,7 +14,7 @@ const Item = ({item, onDeleteGoal} : ItemProps) => {
     }
     return (
         <View style={styles.item}>
-            <Text style={styles.title}>{item.name}</Text><ClearButton title="Delete!" onPress={deleteButton} />
+            <Text style={styles.title}>{item.name}</Text><ClearButton title={t('common:delete')} onPress={deleteButton} />
         </View>
 
     );
