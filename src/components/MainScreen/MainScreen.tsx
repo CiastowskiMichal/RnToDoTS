@@ -1,22 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-get-random-values'
 import { v4 as uuidv4} from 'uuid';
 import {
   SafeAreaView,
   Text,
   FlatList} from 'react-native';
-import AddGoal from '../AddGoal/AddGoal';
-import Item from '../Item/Item';
-import mainscreen from './MainScreen.styles';
+import AddGoalForm from '../AddGoalForm/AddGoalForm';
+import GoalListElement from '../GoalListElement/GoalListElement';
+import styles from './MainScreen.styles';
+import { Goal } from '../../types/goal';
 
-interface Aa {
-  id: string,
-  name: string
-}
 
 const MainScreen = () => {
 
-  const originalGoals: Aa[] = [{
+  const originalGoals: Goal[] = [{
     id: uuidv4(),
     name: 'Take photos'
   },
@@ -33,45 +30,40 @@ const MainScreen = () => {
     name: 'Profit'
   }];
 
-  const [goalList, setGoals] = React.useState<Aa[]>(
+  const [goalList, setGoals] = useState<Goal[]>(
     originalGoals
   );
 
 
-  const addNewGoalHandler = (text: string) => {
-    if (!text.length) {
+  const addNewGoalHandler = (name: string) => {
+    if (!name.length) {
       return
     }
 
-    setGoals((prevGoals: any) => {
-      const goal = {
-        id: uuidv4(),
-        name: text
-      };
-      return prevGoals.concat(goal);
-    });
+    const newGoal : Goal = {
+      id : uuidv4(),
+      name
+    };
+    setGoals([...goalList, newGoal]);
   };
 
-  const DeleteGoalHandler = (item: any) => {
-
-    console.log("kliknieto: " + item.id);
-    setGoals((prevGoals: any) => {
+  const deleteGoalHandler = (item: Goal) => {
+    setGoals((prevGoals: Goal[]) => {
       prevGoals.splice(prevGoals.indexOf(item), 1);
       return prevGoals.slice();
     });
-
   };
 
-  const renderItem = (item: Aa) => {
+  const renderItem = (item: Goal) => {
     return (
-      <Item item={item} onDeleteGoal={DeleteGoalHandler} />
+      <GoalListElement item={item} onDeleteGoal={deleteGoalHandler} />
     );
   };
 
   return (
-    <SafeAreaView style={mainscreen.container}>
-      <Text style={mainscreen.appTitle}>Goals:</Text>
-      <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.appTitle}>Goals:</Text>
+      <AddGoalForm onAddGoal={addNewGoalHandler}></AddGoalForm>
       <FlatList
         data={goalList}
         renderItem={({ item }) => renderItem(item)}

@@ -3,7 +3,6 @@ import {  StyleSheet } from 'react-native';
 
 const newbutton = StyleSheet.create({
     addGoalButton: {
-        //borderRadius: 20,
         borderTopRightRadius: 20,
         borderBottomRightRadius: 20,
         backgroundColor: '#FFF',
