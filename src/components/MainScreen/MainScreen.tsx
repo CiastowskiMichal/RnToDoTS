@@ -13,8 +13,9 @@ import GoalListElement from '../GoalListElement/GoalListElement';
 import styles from './MainScreen.styles';
 import { Goal } from '../../types/goal';
 
-function MainScreen() {
+const MainScreen = () => {
   const { t, i18n } = useTranslation();
+
   const originalGoals: Goal[] = [{
     id: uuidv4(),
     name: 'Take photos',
@@ -79,6 +80,6 @@ function MainScreen() {
       />
     </SafeAreaView>
   );
-}
+};
 
 export default MainScreen;

@@ -5,12 +5,10 @@ import {
 import styles from './CustomButton.styles';
 import CustomButtonProps from './CustomButton.types';
 
-function CustomButton({ onPress, title }: CustomButtonProps) {
-  return (
-    <Pressable style={styles.addGoalButton} onPress={onPress}>
-      <Text style={styles.addGoalButtonText}>{title}</Text>
-    </Pressable>
-  );
-}
+const CustomButton = ({ onPress, title }: CustomButtonProps) => (
+  <Pressable style={styles.addGoalButton} onPress={onPress}>
+    <Text style={styles.addGoalButtonText}>{title}</Text>
+  </Pressable>
+);
 
 export default CustomButton;

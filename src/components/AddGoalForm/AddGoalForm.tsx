@@ -5,7 +5,7 @@ import CustomButton from '../CustomButton/CustomButton';
 import styles from './AddGoalForm.styles';
 import AddGoalFormProps from './AddGoalForm.types';
 
-function AddGoalForm({ onAddGoal }: AddGoalFormProps) {
+const AddGoalForm = ({ onAddGoal }: AddGoalFormProps) => {
   const { t } = useTranslation();
 
   const [enteredText, setEnteredText] = useState<string>('');
@@ -28,6 +28,6 @@ function AddGoalForm({ onAddGoal }: AddGoalFormProps) {
       <CustomButton onPress={addGoalHandler} title={t('common:addNewGoal')} />
     </View>
   );
-}
+};
 
 export default AddGoalForm;
