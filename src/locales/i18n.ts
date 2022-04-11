@@ -1,7 +1,7 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import pl from './en';
-import en from './pl';
+import {initReactI18next} from 'react-i18next';
+import en from './en';
+import pl from './pl';
 
 // the translations
 // (tip move them in a JSON file and import them,
