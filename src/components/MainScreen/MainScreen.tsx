@@ -1,91 +1,77 @@
-import React, { Suspense } from 'react';
+import React, { useState } from 'react';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
   Text,
   FlatList,
-  Button
+  Button,
 } from 'react-native';
-import AddGoal from '../AddGoal/AddGoal';
-import Item from '../Item/Item';
-import mainscreen from './MainScreen.styles';
+import { useTranslation } from 'react-i18next';
+import AddGoalForm from '../AddGoalForm/AddGoalForm';
+import GoalListElement from '../GoalListElement/GoalListElement';
+import styles from './MainScreen.styles';
+import { Goal } from '../../types/goal';
 
-interface Aa {
-  id: string,
-  name: string
-}
-
-const MainScreen = () => {
-
+function MainScreen() {
   const { t, i18n } = useTranslation();
-
-  const originalGoals: Aa[] = [{
+  const originalGoals: Goal[] = [{
     id: uuidv4(),
-    name: 'Take photos'
+    name: 'Take photos',
   },
   {
     id: uuidv4(),
-    name: 'Make scans'
+    name: 'Make scans',
   },
   {
     id: uuidv4(),
-    name: '...'
+    name: '...',
   },
   {
     id: uuidv4(),
-    name: 'Profit'
+    name: 'Profit',
   }];
 
-  const [goalList, setGoals] = React.useState<Aa[]>(
-    originalGoals
+  const [goalList, setGoals] = useState<Goal[]>(
+    originalGoals,
   );
 
-
-  const addNewGoalHandler = (text: string) => {
-    if (!text.length) {
-      return
+  const addNewGoalHandler = (name: string) => {
+    if (!name.length) {
+      return;
     }
-    setGoals((prevGoals: any) => {
-      const goal = {
-        id: uuidv4(),
-        name: text
-      };
-      return prevGoals.concat(goal);
-    });
+
+    const newGoal : Goal = {
+      id: uuidv4(),
+      name,
+    };
+    setGoals([...goalList, newGoal]);
   };
 
-  const DeleteGoalHandler = (item: any) => {
-
-    console.log("kliknieto: " + item.id);
-    setGoals((prevGoals: any) => {
+  const deleteGoalHandler = (item: Goal) => {
+    setGoals((prevGoals: Goal[]) => {
       prevGoals.splice(prevGoals.indexOf(item), 1);
       return prevGoals.slice();
     });
-
   };
 
-  const renderItem = (item: Aa) => {
-    return (
-      <Item item={item} onDeleteGoal={DeleteGoalHandler} />
-    );
-  };
+  const renderItem = (item: Goal) => (
+    <GoalListElement item={item} onDeleteGoal={deleteGoalHandler} />
+  );
 
   const changeLanguage = () => {
-    if (i18n.language === 'en')
-      i18n.changeLanguage('pl');
-    else
-      i18n.changeLanguage('en');
+    if (i18n.language === 'en') i18n.changeLanguage('pl');
+    else i18n.changeLanguage('en');
   };
 
   return (
-    <SafeAreaView style={mainscreen.container}>
+    <SafeAreaView style={styles.container}>
       <Button title={t('common:changeLanguage')} onPress={changeLanguage} />
-      <Suspense fallback='loading'>
-        <Text style={mainscreen.appTitle}>{t('common:title')}:</Text>
-      </Suspense>
-      <AddGoal onAddGoal={addNewGoalHandler}></AddGoal>
+      <Text style={styles.appTitle}>
+        {t('common:title')}
+        :
+      </Text>
+      <AddGoalForm onAddGoal={addNewGoalHandler} />
       <FlatList
         data={goalList}
         renderItem={({ item }) => renderItem(item)}
@@ -93,6 +79,6 @@ const MainScreen = () => {
       />
     </SafeAreaView>
   );
-};
+}
 
 export default MainScreen;

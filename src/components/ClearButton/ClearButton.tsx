@@ -1,18 +1,16 @@
 import React from 'react';
 import {
-  Pressable, Text
+  Pressable, Text,
 } from 'react-native';
-import clearbutton from './ClearButton.styles';
+import styles from './ClearButton.styles';
+import ClearButtonProps from './ClearButton.types';
 
-interface ClearButtonProps {onPress : () => void, title : string};
+function ClearButton({ onPress, title }: ClearButtonProps) {
+  return (
+    <Pressable style={styles.deleteButton} onPress={onPress}>
+      <Text style={styles.deleteButtonText}>{title}</Text>
+    </Pressable>
+  );
+}
 
-const ClearButton = (props : ClearButtonProps) => {
-    return (
-      <Pressable style={clearbutton.deleteButton} onPress={props.onPress}>
-        <Text style={clearbutton.deleteButtonText}>{props.title}</Text>
-      </Pressable>
-    );
-  }
-
-
-  export default ClearButton;
+export default ClearButton;
