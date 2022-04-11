@@ -7,7 +7,7 @@ import ClearButton from '../ClearButton/ClearButton';
 import styles from './GoalListElement.styles';
 import ItemProps from './GoalListElement.types';
 
-function Item({ item, onDeleteGoal } : ItemProps) {
+const Item = ({ item, onDeleteGoal } : ItemProps) => {
   const deleteButton = () => {
     onDeleteGoal(item);
   };
@@ -18,6 +18,6 @@ function Item({ item, onDeleteGoal } : ItemProps) {
     </View>
 
   );
-}
+};
 
 export default Item;
