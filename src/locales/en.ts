@@ -5,6 +5,7 @@ const translation = {
     addNewGoal: 'Add New Goal',
     changeLanguage: 'Change Language',
     back: 'Back',
+    loading: 'Loading',
   },
 };
 

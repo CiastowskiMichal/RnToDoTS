@@ -5,6 +5,7 @@ const translation = {
     addNewGoal: 'Dodaj Nowy Cel',
     changeLanguage: 'Zmień język',
     back: 'Powrót',
+    loading: 'Wczytywanie',
   },
 };
 
