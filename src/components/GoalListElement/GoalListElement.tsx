@@ -7,7 +7,7 @@ import ClearButton from '../ClearButton/ClearButton';
 import styles from './GoalListElement.styles';
 import ItemProps from './GoalListElement.types';
 
-const Item = ({ item, onDeleteGoal } : ItemProps) => {
+const Item = ({ item, onDeleteGoal }: ItemProps) => {
   const deleteButton = () => {
     onDeleteGoal(item);
   };

@@ -1,68 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import {
   SafeAreaView,
   Text,
-  FlatList,
   Button,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import AddGoalForm from '../AddGoalForm/AddGoalForm';
-import GoalListElement from '../GoalListElement/GoalListElement';
+import { DataObject } from 'src/types/article';
 import styles from './MainScreen.styles';
 import { Goal } from '../../types/goal';
+import GoalList from '../GoalList/GoalList';
+import LoadingPanel from '../LoadingPanel/LoadingPanel';
 
 const MainScreen = () => {
+  const emptyData: DataObject = {
+    articles: [{
+      title: '',
+      id: '',
+    }],
+    description: '',
+    title: '',
+  };
   const { t, i18n } = useTranslation();
 
-  const originalGoals: Goal[] = [{
-    id: uuidv4(),
-    name: 'Take photos',
-  },
-  {
-    id: uuidv4(),
-    name: 'Make scans',
-  },
-  {
-    id: uuidv4(),
-    name: '...',
-  },
-  {
-    id: uuidv4(),
-    name: 'Profit',
-  }];
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState<DataObject>(emptyData);
 
-  const [goalList, setGoals] = useState<Goal[]>(
-    originalGoals,
-  );
-
-  const addNewGoalHandler = (name: string) => {
-    if (!name.length) {
-      return;
-    }
-
-    const newGoal : Goal = {
-      id: uuidv4(),
-      name,
-    };
-    setGoals([...goalList, newGoal]);
+  const getData = async () => {
+    await fetch('https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json')
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
-  const deleteGoalHandler = (item: Goal) => {
-    setGoals((prevGoals: Goal[]) => {
-      prevGoals.splice(prevGoals.indexOf(item), 1);
-      return prevGoals.slice();
-    });
-  };
-
-  const renderItem = (item: Goal) => (
-    <GoalListElement item={item} onDeleteGoal={deleteGoalHandler} />
-  );
+  useEffect(() => {
+    getData();
+  }, []);
 
   const changeLanguage = () => {
     if (i18n.language === 'en') i18n.changeLanguage('pl');
     else i18n.changeLanguage('en');
+  };
+
+  const populateList = (dataObject: DataObject) => {
+    const newGoals: Goal[] = [...dataObject.articles].map((element) => {
+      const newGoal = {
+        id: uuidv4(),
+        name: element.title,
+      };
+      return newGoal;
+    });
+    return newGoals;
   };
 
   return (
@@ -72,12 +66,11 @@ const MainScreen = () => {
         {t('common:title')}
         :
       </Text>
-      <AddGoalForm onAddGoal={addNewGoalHandler} />
-      <FlatList
-        data={goalList}
-        renderItem={({ item }) => renderItem(item)}
-        keyExtractor={({ id }) => id}
-      />
+
+      {isLoading
+        ? <LoadingPanel />
+        : <GoalList goals={populateList(data)} />}
+
     </SafeAreaView>
   );
 };
